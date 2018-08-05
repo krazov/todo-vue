@@ -22,6 +22,7 @@ export default {
                 return;
             }
 
+            // else
             this.formSubmitted(task);
         },
     },

@@ -3,27 +3,21 @@ main
     img(src='@/assets/logo.png')
     h1 Todo manager
     FormAddContainer
-    List(:todos="todos")
+    ListContainer
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
 import FormAddContainer from './containers/FormAddContainer.vue';
-
-import List    from './components/List/List.vue';
-import FormAdd from './components/FormAdd/FormAdd.vue';
+import ListContainer from './containers/ListContainer.vue';
 
 export default {
     name: 'App',
 
     components: {
         FormAddContainer,
-        List,
-    },
-
-    computed: {
-        ...mapGetters(['todos']),
+        ListContainer,
     },
 };
 </script>
