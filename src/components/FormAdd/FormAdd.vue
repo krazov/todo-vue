@@ -18,8 +18,15 @@ export default {
 
     methods: {
         onSubmit() {
-            this.handleSubmit(this.task);
-            this.task = '';
+            if (this.task == '') {
+                return;
+            }
+
+            this
+                .handleSubmit(this.task)
+                .then(() => {
+                    this.task = '';
+                });
         },
     },
 };

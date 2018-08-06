@@ -1,16 +1,26 @@
 <template lang="pug">
 ul(v-if="hasTodos")
-    Item(v-for="todo in todos" :key="todo.id" :todo="todo")
+    Item(
+        v-for="todo in todos"
+        :key="todo.id"
+        :todo="todo"
+        :handleToggle="handleToggle"
+        :handleUpdate="handleUpdate"
+        :handleDelete="handleDelete"
+    )
 </template>
 
 <script>
 import Item from './Item.vue';
 
 export default {
-    name: "List",
+    name: 'List',
 
     props: {
-        todos: Array,
+        todos:        Array,
+        handleToggle: Function,
+        handleUpdate: Function,
+        handleDelete: Function,
     },
 
     computed: {
@@ -23,15 +33,6 @@ export default {
         Item,
     },
 };
-
-// TODO: check if can be validated id detail
-// [
-//     {
-//         id: Number,
-//         task: String,
-//         done: Boolean,
-//     },
-// ],
 </script>
 
 <style scoped lang="stylus">

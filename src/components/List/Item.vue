@@ -1,48 +1,62 @@
 <template lang="pug">
 li(:class="{ done: todo.done }")
-    input(type="checkbox" @change="handleToggle")
-    span {{ '#' + todo.id }}: {{ todo.task }}
-    button(type="button" @click="handleDelete") Remove
+    input(
+    type="checkbox"
+    @change="handleToggle(todo.id)"
+    )
+
+    span(
+    v-if="!editMode"
+    @click="edit"
+    ) {{ '#' + todo.id }}: {{ todo.task }}
+
+    input(
+    v-if="editMode"
+    v-model="task"
+    @blur="save"
+    @keypress.enter="save"
+    )
+
+    button(
+    type="button"
+    @click="handleDelete(todo.id)"
+    ) Remove
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
-import { TODO_TOGGLE_REQUESTED, TODO_DELETE_REQUESTED } from '../../constants/actions';
-
 export default {
     name: 'Item',
 
     props: {
-        todo: Object,
+        todo:         Object,
+        handleToggle: Function,
+        handleUpdate: Function,
+        handleDelete: Function,
     },
 
     data: () => ({
         editMode: false,
-        task: '',
+        task:     '',
     }),
 
     methods: {
-        ...mapActions({
-            deleteTodoRequested: TODO_DELETE_REQUESTED,
-            toggleRequested:     TODO_TOGGLE_REQUESTED,
-        }),
-
-        handleToggle() {
-            this.toggleRequested(this.todo.id);
+        edit() {
+            this.task     = this.todo.task;
+            this.editMode = !this.editMode;
         },
 
-        handleDelete() {
-            this.deleteTodoRequested(this.todo.id);
+        save() {
+            this
+                .handleUpdate({
+                    id:   this.todo.id,
+                    task: this.task,
+                })
+                .then(() => {
+                    this.editMode = false;
+                });
         },
     },
 };
-
-// {
-//     id:   Number,
-//         task: String,
-//     done: Boolean,
-// }
 </script>
 
 <style scoped lang="stylus">

@@ -1,17 +1,19 @@
-import Vue  from 'vue';
+import Vue from 'vue';
 import Vuex from 'vuex';
 
 import {
     TODO_ADDED,
-    TODO_REMOVED,
     TODO_TOGGLED,
+    TODO_UPDATED,
+    TODO_REMOVED,
     FORM_SUBMITTED,
     TODO_TOGGLE_REQUESTED,
+    TODO_UPDATE_REQUESTED,
     TODO_DELETE_REQUESTED,
 } from './constants/actions';
 
 import { createTodo } from './helpers/todo-create.helper';
-import { findIndex }  from './utils/store.util';
+import { findIndex } from './utils/store.util';
 
 Vue.use(Vuex);
 
@@ -29,25 +31,33 @@ export default new Vuex.Store({
             state.todos.push(createTodo(todo));
         },
 
-        [TODO_REMOVED](state, id) {
-            const index = findIndex(state.todos, 'id', id);
+        [TODO_UPDATED](state, { id, task }) {
+            const index    = findIndex(state.todos, 'id', id);
+            const { done } = state.todos[index];
 
             state.todos = [
                 ...state.todos.slice(0, index),
+                { id, task, done },
                 ...state.todos.slice(index + 1),
             ];
         },
 
         [TODO_TOGGLED](state, id) {
+            const index          = findIndex(state.todos, 'id', id);
+            const { task, done } = state.todos[index];
+
+            state.todos = [
+                ...state.todos.slice(0, index),
+                { id, task, done: !done },
+                ...state.todos.slice(index + 1),
+            ];
+        },
+
+        [TODO_REMOVED](state, id) {
             const index = findIndex(state.todos, 'id', id);
 
             state.todos = [
                 ...state.todos.slice(0, index),
-                {
-                    id:   state.todos[index].id,
-                    task: state.todos[index].task,
-                    done: !state.todos[index].done,
-                },
                 ...state.todos.slice(index + 1),
             ];
         },
@@ -58,12 +68,16 @@ export default new Vuex.Store({
             commit(TODO_ADDED, todo);
         },
 
-        [TODO_REMOVED]({ commit }, id) {
-            commit(TODO_REMOVED, id);
+        [TODO_TOGGLED]({ commit }, { id, task }) {
+            commit(TODO_TOGGLED, { id, task });
         },
 
-        [TODO_TOGGLED]({ commit }, id) {
-            commit(TODO_TOGGLED, id);
+        [TODO_UPDATED]({ commit }, { id, task }) {
+            commit(TODO_UPDATED, { id, task });
+        },
+
+        [TODO_REMOVED]({ commit }, id) {
+            commit(TODO_REMOVED, id);
         },
 
         [FORM_SUBMITTED]({ dispatch }, todo) {
@@ -72,6 +86,10 @@ export default new Vuex.Store({
 
         [TODO_TOGGLE_REQUESTED]({ dispatch }, id) {
             dispatch(TODO_TOGGLED, id);
+        },
+
+        [TODO_UPDATE_REQUESTED]({ dispatch }, { id, task }) {
+            dispatch(TODO_UPDATED, { id, task });
         },
 
         [TODO_DELETE_REQUESTED]({ dispatch }, id) {
