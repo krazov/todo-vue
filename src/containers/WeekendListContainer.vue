@@ -13,14 +13,14 @@ import { TODO_TOGGLE_REQUESTED, TODO_UPDATE_REQUESTED, TODO_DELETE_REQUESTED } f
 import List from '../components/List/List.vue';
 
 export default {
-    name: 'ListContainer',
+    name: 'WeekendListContainer',
 
     computed: {
-        ...mapGetters('weekdays', ['todos']),
+        ...mapGetters('weekends', ['todos']),
     },
 
     methods: {
-        ...mapActions('weekdays', {
+        ...mapActions('weekends', {
             todoToggleRequested: TODO_TOGGLE_REQUESTED,
             todoUpdateRequested: TODO_UPDATE_REQUESTED,
             todoDeleteRequested: TODO_DELETE_REQUESTED,

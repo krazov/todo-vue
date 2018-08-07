@@ -17,10 +17,12 @@ import { findIndex } from './utils/store.util';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-    state: {
+const todosStore = {
+    namespaced: true,
+
+    state: () => ({
         todos: [],
-    },
+    }),
 
     getters: {
         todos: (state) => state.todos.sort((a, b) => a.done == b.done ? a.id - b.id : a.done - b.done),
@@ -95,5 +97,12 @@ export default new Vuex.Store({
         [TODO_DELETE_REQUESTED]({ dispatch }, id) {
             dispatch(TODO_REMOVED, id);
         },
+    },
+};
+
+export default new Vuex.Store({
+    modules: {
+        weekdays: todosStore,
+        weekends: todosStore,
     },
 });

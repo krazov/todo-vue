@@ -8,12 +8,12 @@ import { FORM_SUBMITTED } from '../constants/actions';
 import FormAdd from '../components/FormAdd/FormAdd.vue';
 
 export default {
-    name: 'FormAddContainer',
+    name: 'WeekendFormAddContainer',
 
     components: { FormAdd },
 
     methods: {
-        ...mapActions('weekdays', {
+        ...mapActions('weekends', {
             formSubmitted: FORM_SUBMITTED,
         }),
     },
