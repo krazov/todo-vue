@@ -23,7 +23,7 @@ export default new Vuex.Store({
     },
 
     getters: {
-        todos: (state) => state.todos,
+        todos: (state) => state.todos.sort((a, b) => a.done == b.done ? a.id - b.id : a.done - b.done),
     },
 
     mutations: {
@@ -42,7 +42,7 @@ export default new Vuex.Store({
             ];
         },
 
-        [TODO_TOGGLED](state, id) {
+        [TODO_TOGGLED](state, { id }) {
             const index          = findIndex(state.todos, 'id', id);
             const { task, done } = state.todos[index];
 
@@ -68,8 +68,8 @@ export default new Vuex.Store({
             commit(TODO_ADDED, todo);
         },
 
-        [TODO_TOGGLED]({ commit }, { id, task }) {
-            commit(TODO_TOGGLED, { id, task });
+        [TODO_TOGGLED]({ commit }, { id }) {
+            commit(TODO_TOGGLED, { id });
         },
 
         [TODO_UPDATED]({ commit }, { id, task }) {
@@ -84,8 +84,8 @@ export default new Vuex.Store({
             dispatch(TODO_ADDED, todo);
         },
 
-        [TODO_TOGGLE_REQUESTED]({ dispatch }, id) {
-            dispatch(TODO_TOGGLED, id);
+        [TODO_TOGGLE_REQUESTED]({ dispatch }, { id }) {
+            dispatch(TODO_TOGGLED, { id });
         },
 
         [TODO_UPDATE_REQUESTED]({ dispatch }, { id, task }) {

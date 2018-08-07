@@ -1,25 +1,27 @@
 <template lang="pug">
 li(:class="{ done: todo.done }")
     input(
-    type="checkbox"
-    @change="handleToggle(todo.id)"
+        type="checkbox"
+        @change="handleToggle({ id: todo.id })"
     )
 
     span(
-    v-if="!editMode"
-    @click="edit"
+        v-if="!editMode"
+        @click="edit"
     ) {{ '#' + todo.id }}: {{ todo.task }}
 
-    input(
-    v-if="editMode"
-    v-model="task"
-    @blur="save"
-    @keypress.enter="save"
-    )
+    span(v-if="editMode")
+        | {{ '#' + todo.id }}:
+        |
+        input(
+            v-model="task"
+            @blur="save"
+            @keypress.enter="save"
+        )
 
     button(
-    type="button"
-    @click="handleDelete(todo.id)"
+        type="button"
+        @click="handleDelete(todo.id)"
     ) Remove
 </template>
 
