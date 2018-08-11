@@ -14,8 +14,6 @@ main
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 import FormAddContainer from './containers/FormAddContainer.vue';
 import ListContainer from './containers/ListContainer.vue';
 import WeekendFormAddContainer from './containers/WeekendFormAddContainer.vue';

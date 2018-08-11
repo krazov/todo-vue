@@ -212,7 +212,7 @@ module.exports = {
         "constructor-super": 1,
         "generator-star-spacing": [1, "before"],
         "no-class-assign": 1,
-        "no-confusing-arrow": 1,
+        "no-confusing-arrow": 0,
         "no-const-assign": 2,
         "no-dupe-class-members": 0,
         "no-duplicate-imports": 0,
