@@ -34,7 +34,7 @@ export default {
 
 <style scoped lang="stylus">
 form
-    background-color gainsboro
+    bg($formBg)
     border 1px dashed white
     padding 20px
 </style>

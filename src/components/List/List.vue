@@ -37,7 +37,7 @@ export default {
 
 <style scoped lang="stylus">
 ul
-    border 1px dotted dimgray
+    border 1px dotted $listBorder
     padding 10px
     text-align left
 </style>
