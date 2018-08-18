@@ -34,6 +34,8 @@ const todosStore = {
         },
 
         [TODO_UPDATED](state, { id, task }) {
+            console.log(`Mutation of todo #${id} about to happen`);
+
             const index    = findIndex(state.todos, 'id', id);
             const { done } = state.todos[index];
 
@@ -42,6 +44,9 @@ const todosStore = {
                 { id, task, done },
                 ...state.todos.slice(index + 1),
             ];
+
+
+            console.log(`Mutation of todo #${id} happened`);
         },
 
         [TODO_TOGGLED](state, { id }) {
@@ -75,7 +80,11 @@ const todosStore = {
         },
 
         [TODO_UPDATED]({ commit }, { id, task }) {
+            console.log(`[TODO_UPDATED] Request for mutation of todo #${id}`);
+
             commit(TODO_UPDATED, { id, task });
+
+            console.log(`[TODO_UPDATED] Request for mutation of todo #${id} has been committed`);
         },
 
         [TODO_REMOVED]({ commit }, id) {
@@ -91,7 +100,13 @@ const todosStore = {
         },
 
         [TODO_UPDATE_REQUESTED]({ dispatch }, { id, task }) {
+            console.log(`[TODO_UPDATE_REQUESTED] Update of todo #${id} has been requested`);
+
             dispatch(TODO_UPDATED, { id, task });
+
+            console.log(`[TODO_UPDATE_REQUESTED] Update of todo #${id} has been fulfilled`);
+
+            return `Todo #${id} has been updated`;
         },
 
         [TODO_DELETE_REQUESTED]({ dispatch }, id) {

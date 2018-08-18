@@ -63,7 +63,8 @@ export default {
                     id: this.todo.id,
                     task,
                 })
-                .then(() => {
+                .then((message) => {
+                    console.log('[Message]', message);
                     this.editMode = false;
                 });
         },
