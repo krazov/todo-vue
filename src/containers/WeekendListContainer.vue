@@ -10,7 +10,7 @@ List(
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { TODO_TOGGLE_REQUESTED, TODO_UPDATE_REQUESTED, TODO_DELETE_REQUESTED } from '../constants/actions';
-import List from '../components/List/List.vue';
+import List from '../components/todo-list/todo-list.vue';
 
 export default {
     name: 'WeekendListContainer',

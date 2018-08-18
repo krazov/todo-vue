@@ -13,10 +13,10 @@ li(:class="{ done: todo.done }")
     span(v-if="editMode")
         | {{ '#' + todo.id }}:
         |
-        input(
-            v-model="task"
-            @blur="save"
-            @keypress.enter="save"
+        todo-input(
+            :value="todo.task"
+            :handleSave="save"
+            :handleCancel="cancel"
         )
 
     button(
@@ -26,11 +26,13 @@ li(:class="{ done: todo.done }")
 </template>
 
 <script>
+import TodoInput from './todo-input.vue';
+
 export default {
-    name: 'Item',
+    name: 'todo-item',
 
     props: {
-        todo:         Object,
+        todo: Object,
         handleToggle: Function,
         handleUpdate: Function,
         handleDelete: Function,
@@ -38,20 +40,28 @@ export default {
 
     data: () => ({
         editMode: false,
-        task:     '',
+        task: '',
     }),
+
+    components: {
+        TodoInput,
+    },
 
     methods: {
         edit() {
-            this.task     = this.todo.task;
+            this.task = this.todo.task;
             this.editMode = !this.editMode;
         },
 
-        save() {
+        cancel() {
+            this.editMode = false;
+        },
+
+        save(task) {
             this
                 .handleUpdate({
-                    id:   this.todo.id,
-                    task: this.task,
+                    id: this.todo.id,
+                    task,
                 })
                 .then(() => {
                     this.editMode = false;

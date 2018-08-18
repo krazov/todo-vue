@@ -1,6 +1,6 @@
 <template lang="pug">
 ul(v-if="hasTodos")
-    Item(
+    todo-item(
         v-for="todo in todos"
         :key="todo.id"
         :todo="todo"
@@ -11,13 +11,17 @@ ul(v-if="hasTodos")
 </template>
 
 <script>
-import Item from './Item.vue';
+import TodoItem from './todo-item.vue';
 
 export default {
-    name: 'List',
+    name: 'todo-list',
 
     props: {
-        todos:        Array,
+        todos: {
+            type: Array,
+            required: true,
+            default: () => [],
+        },
         handleToggle: Function,
         handleUpdate: Function,
         handleDelete: Function,
@@ -30,7 +34,7 @@ export default {
     },
 
     components: {
-        Item,
+        TodoItem,
     },
 };
 </script>
