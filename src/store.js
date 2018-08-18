@@ -25,7 +25,7 @@ const todosStore = {
     }),
 
     getters: {
-        todos: (state) => state.todos.sort((a, b) => a.done == b.done ? a.id - b.id : a.done - b.done),
+        todos: (state) => state.todos.slice().sort((a, b) => a.done == b.done ? a.id - b.id : a.done - b.done),
     },
 
     mutations: {
