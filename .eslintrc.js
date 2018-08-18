@@ -192,7 +192,7 @@ module.exports = {
         "operator-assignment": 0,
         "operator-linebreak": [1, "after"],
         "padded-blocks": [1, "never"],
-        "quote-props": [1, "consistent-as-needed", {"keywords": true, "unnecessary": true}],
+        "quote-props": [1, "consistent-as-needed", {"keywords": false, "unnecessary": true}],
         "quotes": 0,
         "require-jsdoc": 0,
         "semi": [2, "always"],
@@ -233,6 +233,10 @@ module.exports = {
         "require-yield": 0,
         "sort-imports": 0,
         "template-curly-spacing": 0,
-        "yield-star-spacing": 0
+        "yield-star-spacing": 0,
+
+        "vue/script-indent": [4, 4, {
+            'baseIndent': 1,
+        }],
     },
 };
